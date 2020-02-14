@@ -12,6 +12,8 @@ package org.eclipse.jgit.attributes;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -82,7 +84,7 @@ public class FilterCommandRegistry {
 	 *         registered
 	 */
 	public static Set<String> getRegisteredFilterCommands() {
-		return filterCommandRegistry.keySet();
+		return new HashSet<>(Collections.list(filterCommandRegistry.keys()));
 	}
 
 	/**

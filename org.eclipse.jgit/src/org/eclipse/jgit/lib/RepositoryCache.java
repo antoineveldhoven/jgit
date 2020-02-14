@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -276,7 +277,7 @@ public class RepositoryCache {
 	}
 
 	private Collection<Key> getKeys() {
-		return new ArrayList<>(cacheMap.keySet());
+        return Collections.list(cacheMap.keys());
 	}
 
 	private void clearAllExpired() {
@@ -288,9 +289,9 @@ public class RepositoryCache {
 	}
 
 	private void clearAll() {
-		for (Key k : cacheMap.keySet()) {
-			unregisterAndCloseRepository(k);
-		}
+        cacheMap.keys().asIterator().forEachRemaining(k -> {
+            unregisterAndCloseRepository(k);
+        });
 	}
 
 	private Lock lockFor(Key location) {
